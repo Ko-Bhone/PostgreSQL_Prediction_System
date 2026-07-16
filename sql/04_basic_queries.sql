@@ -80,7 +80,7 @@ SELECT
 FROM ml_models
 WHERE version IN ('1.0', '2.1');
 
---rediction Confidence 0.90
+--prediction Confidence 0.90
 SELECT
     prediction,
     confidence

@@ -38,7 +38,7 @@ VALUES
 
 
 - PREDICTIONS
-INSERT INTO prediction (
+INSERT INTO predictions (
     user_id,
     model_id,
     dataset_id,

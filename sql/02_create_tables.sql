@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS datasets(
 
 
 -- Table: predictions
-CREATE TABLE IF NOT EXISTS prediction(
+CREATE TABLE IF NOT EXISTS predictions(
 	id SERIAL PRIMARY KEY,
 	user_id INTEGER NOT NULL,
 	model_id INTEGER NOT NULL,
