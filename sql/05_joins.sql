@@ -3,8 +3,8 @@ SELECT
     u.full_name,
     p.prediction,
     p.confidence
-FROM predictions p
-INNER JOIN users u ON p.user_id = u.id;
+FROM predictions AS p
+INNER JOIN users AS u ON p.user_id = u.id;
 
 
 -- LEFT JOIN >> Show all users and their predictions
@@ -12,8 +12,8 @@ SELECT
     u.full_name,
     p.prediction,
     p.confidence
-FROM users u
-LEFT JOIN predictions p ON u.id = p.user_id;
+FROM users AS u
+LEFT JOIN predictions AS p ON u.id = p.user_id;
 
 
 -- RIGHT JOIN >>  Show all predictions and related users
@@ -21,8 +21,8 @@ SELECT
     u.full_name,
     p.prediction,
     p.confidence
-FROM users u
-RIGHT JOIN predictions p ON u.id = p.user_id;
+FROM users AS u
+RIGHT JOIN predictions AS p ON u.id = p.user_id;
 
 
 -- FULL JOIN >> Show all users and all predictions
@@ -30,8 +30,8 @@ SELECT
     u.full_name,
     p.prediction,
     p.confidence
-FROM users u
-FULL JOIN predictions p ON u.id = p.user_id;
+FROM users AS u
+FULL JOIN predictions AS p ON u.id = p.user_id;
 
 
 -- Multiple Table JOIN >> Prediction Report
@@ -42,10 +42,10 @@ SELECT
     p.prediction,
     p.confidence,
     p.created_at
-FROM predictions p
-INNER JOIN users u ON p.user_id = u.id
-INNER JOIN ml_models m ON p.model_id = m.id
-INNER JOIN datasets d ON p.dataset_id = d.id
+FROM predictions AS p
+INNER JOIN users AS u ON p.user_id = u.id
+INNER JOIN ml_models AS m ON p.model_id = m.id
+INNER JOIN datasets AS d ON p.dataset_id = d.id
 ORDER BY p.created_at DESC;
 
 
@@ -54,8 +54,8 @@ SELECT
     u.full_name,
     p.prediction,
     p.confidence
-FROM predictions p
-INNER JOIN users u ON p.user_id = u.id
+FROM predictions AS p
+INNER JOIN users AS u ON p.user_id = u.id
 WHERE p.prediction = 'Spam';
 
 
@@ -63,8 +63,8 @@ WHERE p.prediction = 'Spam';
 SELECT
     u.full_name,
     COUNT(p.id) AS total_predictions
-FROM users u
-INNER JOIN predictions p ON u.id = p.user_id
+FROM users AS u
+INNER JOIN predictions AS p ON u.id = p.user_id
 GROUP BY u.full_name;
 
 
@@ -72,8 +72,8 @@ GROUP BY u.full_name;
 SELECT
     u.full_name,
     COUNT(p.id) AS total_predictions
-FROM users u
-INNER JOIN predictions p ON u.id = p.user_id
+FROM users AS u
+INNER JOIN predictions AS p ON u.id = p.user_id
 GROUP BY u.full_name
 HAVING COUNT(p.id) > 1;
 
@@ -84,9 +84,9 @@ SELECT
     COUNT(p.id) AS total_predictions,
     AVG(p.confidence) AS avg_confidence,
     MAX(p.confidence) AS highest_confidence
-FROM predictions p
-JOIN ml_models m ON p.model_id = m.id
-JOIN datasets d ON p.dataset_id = d.id
+FROM predictions AS p
+JOIN ml_models AS m ON p.model_id = m.id
+JOIN datasets AS d ON p.dataset_id = d.id
 WHERE d.file_size > 2000
 GROUP BY m.model_name
 HAVING COUNT(p.id) >= 1
@@ -97,8 +97,8 @@ ORDER BY avg_confidence DESC;
 SELECT
     m.model_name,
 AVG(p.confidence)
-FROM predictions p
-JOIN ml_models m ON p.model_id=m.id
+FROM predictions AS p
+JOIN ml_models AS m ON p.model_id=m.id
 GROUP BY m.model_name;
 
 
@@ -106,8 +106,8 @@ GROUP BY m.model_name;
 SELECT
     m.model_name,
 MAX(p.confidence)
-FROM predictions p
-JOIN ml_models m ON p.model_id=m.id
+FROM predictions AS p
+JOIN ml_models AS m ON p.model_id=m.id
 GROUP BY m.model_name;
 
 
@@ -115,8 +115,8 @@ GROUP BY m.model_name;
 SELECT
 m.model_name,
 MIN(p.confidence)
-FROM predictions p
-JOIN ml_models m ON p.model_id=m.id
+FROM predictions AS p
+JOIN ml_models AS m ON p.model_id=m.id
 GROUP BY m.model_name;
 
 
@@ -126,8 +126,8 @@ COUNT(*) AS total_predictions,
 AVG(p.confidence) AS avg_confidence,
 MAX(p.confidence) AS highest_confidence,
 MIN(p.confidence) AS lowest_confidence
-FROM predictions p
-JOIN ml_models m ON p.model_id=m.id
+FROM predictions AS p
+JOIN ml_models AS m ON p.model_id=m.id
 GROUP BY m.model_name
 HAVING COUNT(*)>=1
 ORDER BY avg_confidence DESC;
