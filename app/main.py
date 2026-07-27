@@ -1,10 +1,12 @@
 from fastapi import FastAPI
+from app.api.users import router as user_router
 
-from app.models import user, ml_model, dataset, prediction
 
 app = FastAPI(
     title = "ML Prediction API",
     version = "1.0.0")
+
+app.include_router(user_router)
 
 @app.get("/")
 def root():
